@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawFlow — Productivity System for OpenClaw</title>
+  <meta name="description" content="Automated morning briefs, daily summaries, and weekly reviews for OpenClaw. Set up in 30 minutes. Runs itself forever. Built by a Lead Data Scientist.">
+  <meta name="keywords" content="OpenClaw productivity, AI productivity system, knowledge worker automation, ClawFlow, morning brief automation, daily summary automation">
+  <meta name="author" content="Dr. Data Science">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ClawFlow — Your OpenClaw Productivity System">
+  <meta property="og:description" content="Stop configuring, start working. Automated morning briefs, daily summaries, and weekly reviews. 30-minute setup. Runs forever.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kneijenhuijs.github.io/clawflow-landing/">
+  <meta property="og:image" content="https://kneijenhuijs.github.io/clawflow-landing/og-image.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ClawFlow — Your OpenClaw Productivity System">
+  <meta name="twitter:description" content="Automated morning briefs, daily summaries, and weekly reviews. 30-minute setup.">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ClawFlow",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "OpenClaw",
+    "description": "Complete productivity system for OpenClaw — automated morning briefs, daily summaries, weekly reviews, and multi-project support.",
+    "offers": [
+      {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "name": "ClawFlow Basic",
+        "description": "Free skill with manual morning briefs and daily summaries"
+      },
+      {
+        "@type": "Offer",
+        "price": "99",
+        "priceCurrency": "USD",
+        "name": "ClawFlow Complete",
+        "description": "Full automation, multi-project support, memory search, weekly reviews"
+      }
+    ],
+    "author": {
+      "@type": "Person",
+      "name": "Koen Neijenhuijs",
+      "jobTitle": "Lead Data Scientist",
+      "url": "https://drdata.science"
+    }
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦝</text></svg>">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            claw: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#b9dffd',
+              300: '#7cc5fc',
+              400: '#36a8f8',
+              500: '#0c8ce9',
+              600: '#006fc7',
+              700: '#0059a2',
+              800: '#054c85',
+              900: '#0a3f6e',
+              950: '#072849',
+            },
+            surface: {
+              50: '#fafafa',
+              100: '#f4f4f5',
+              200: '#e4e4e7',
+              300: '#d4d4d8',
+              800: '#27272a',
+              900: '#18181b',
+              950: '#09090b',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'SF Mono', 'Fira Code', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Inter + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+
+    /* Terminal window styling */
+    .terminal {
+      background: #1a1a2e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    .terminal-bar {
+      background: #16162a;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .terminal-body {
+      padding: 20px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #e2e8f0;
+      overflow-x: auto;
+    }
+
+    /* Typing animation for terminal */
+    .type-line {
+      opacity: 0;
+      animation: fadeInLine 0.3s ease forwards;
+    }
+    @keyframes fadeInLine {
+      to { opacity: 1; }
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #0c8ce9 0%, #36a8f8 50%, #7cc5fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subtle grid background */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(12, 140, 233, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(12, 140, 233, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    /* Feature card hover */
+    .feature-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px -10px rgba(12, 140, 233, 0.15);
+    }
+
+    /* Comparison table */
+    .comparison-check {
+      color: #0c8ce9;
+    }
+    .comparison-x {
+      color: #a1a1aa;
+    }
+
+    /* CTA pulse */
+    .cta-glow {
+      box-shadow: 0 0 0 0 rgba(12, 140, 233, 0.4);
+      animation: pulse-glow 2s infinite;
+    }
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 0 0 0 rgba(12, 140, 233, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(12, 140, 233, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(12, 140, 233, 0); }
+    }
+
+    /* Scroll animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-white text-surface-900 font-sans">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-lg border-b border-surface-100 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#" class="flex items-center gap-2.5 font-bold text-lg">
+        <span class="text-2xl">🦝</span>
+        <span>ClawFlow</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-surface-800">
+        <a href="#features" class="hover:text-claw-600 transition-colors">Features</a>
+        <a href="#how-it-works" class="hover:text-claw-600 transition-colors">How It Works</a>
+        <a href="#pricing" class="hover:text-claw-600 transition-colors">Pricing</a>
+        <a href="#early-access" class="bg-claw-600 text-white px-4 py-2 rounded-lg hover:bg-claw-700 transition-colors font-medium">Get Early Access</a>
+      </div>
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-surface-100 bg-white">
+      <div class="px-6 py-4 flex flex-col gap-4 text-sm">
+        <a href="#features" class="hover:text-claw-600">Features</a>
+        <a href="#how-it-works" class="hover:text-claw-600">How It Works</a>
+        <a href="#pricing" class="hover:text-claw-600">Pricing</a>
+        <a href="#early-access" class="bg-claw-600 text-white px-4 py-2 rounded-lg text-center font-medium">Get Early Access</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="grid-bg pt-32 pb-20 md:pt-40 md:pb-28">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <!-- Eyebrow -->
+        <div class="inline-flex items-center gap-2 bg-claw-50 text-claw-700 text-sm font-medium px-3 py-1.5 rounded-full mb-6">
+          <span class="w-2 h-2 bg-claw-500 rounded-full animate-pulse"></span>
+          Launching March 13 — Free skill available on ClawHub
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-6">
+          You installed OpenClaw.<br>
+          <span class="gradient-text">Now make it actually useful.</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-surface-800/70 leading-relaxed mb-10 max-w-2xl">
+          ClawFlow is a production-ready productivity system for OpenClaw. Automated morning briefs, daily summaries, weekly reviews. Set up in 30 minutes. Runs&nbsp;itself&nbsp;forever.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#early-access" class="cta-glow bg-claw-600 text-white px-6 py-3.5 rounded-xl font-semibold text-center hover:bg-claw-700 transition-colors">
+            Get Early Access →
+          </a>
+          <a href="#demo" class="border border-surface-200 text-surface-800 px-6 py-3.5 rounded-xl font-semibold text-center hover:bg-surface-50 transition-colors">
+            See It In Action
+          </a>
+        </div>
+
+        <p class="text-sm text-surface-800/50 mt-4">Free skill available now · Paid template $99 one-time</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Statement -->
+  <section class="py-16 md:py-20 bg-surface-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">Sound familiar?</h2>
+        <div class="grid gap-4 text-left max-w-lg mx-auto">
+          <div class="flex gap-3 items-start">
+            <span class="text-surface-300 mt-0.5 text-lg">→</span>
+            <p class="text-surface-800/70">You spend 20 minutes every morning piecing together your agenda from 4 different apps</p>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="text-surface-300 mt-0.5 text-lg">→</span>
+            <p class="text-surface-800/70">You can't remember what you worked on last Thursday</p>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="text-surface-300 mt-0.5 text-lg">→</span>
+            <p class="text-surface-800/70">You installed OpenClaw, got excited, then&hellip; it just sits there</p>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="text-surface-300 mt-0.5 text-lg">→</span>
+            <p class="text-surface-800/70">You know you <em>could</em> automate this. You just don't have 30 hours to figure it out</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo / Terminal -->
+  <section id="demo" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">This is what 9:00 AM looks like with ClawFlow</h2>
+        <p class="text-surface-800/60">Delivered to your chat. Automatically. Every workday.</p>
+      </div>
+
+      <div class="max-w-2xl mx-auto reveal">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot bg-red-400"></div>
+            <div class="terminal-dot bg-yellow-400"></div>
+            <div class="terminal-dot bg-green-400"></div>
+            <span class="text-xs text-gray-400 ml-2 font-mono">morning-brief — OpenClaw</span>
+          </div>
+          <div class="terminal-body">
+            <div class="type-line" style="animation-delay: 0.1s">
+              <span class="text-gray-400">🦝</span> <span class="text-blue-300 font-medium">Good morning, Koen!</span>
+            </div>
+            <div class="type-line mt-3" style="animation-delay: 0.3s">
+              <span class="text-gray-400">📅</span> <span class="text-gray-300">Monday, 10 March 2026</span>
+            </div>
+            <div class="type-line mt-4" style="animation-delay: 0.5s">
+              <span class="text-gray-400">🎯</span> <span class="text-blue-300">Focus:</span> <span class="text-gray-300">Ship ClawFlow landing page</span>
+            </div>
+            <div class="type-line mt-4" style="animation-delay: 0.7s">
+              <span class="text-gray-400">📅</span> <span class="text-blue-300">Agenda:</span>
+            </div>
+            <div class="type-line" style="animation-delay: 0.9s">
+              <span class="text-gray-500 ml-4">09:00</span> <span class="text-gray-300">Morning Routine</span>
+            </div>
+            <div class="type-line" style="animation-delay: 1.1s">
+              <span class="text-gray-500 ml-4">10:00</span> <span class="text-gray-300">SZW Project — Data Analysis</span>
+            </div>
+            <div class="type-line" style="animation-delay: 1.3s">
+              <span class="text-gray-500 ml-4">14:00</span> <span class="text-gray-300">Team Standup</span>
+            </div>
+            <div class="type-line" style="animation-delay: 1.5s">
+              <span class="text-gray-500 ml-4">16:00</span> <span class="text-gray-300">1:1 with Manager</span>
+            </div>
+            <div class="type-line mt-4" style="animation-delay: 1.7s">
+              <span class="text-gray-400">✅</span> <span class="text-blue-300">Tasks:</span>
+            </div>
+            <div class="type-line" style="animation-delay: 1.9s">
+              <span class="text-red-400 ml-4">🔴</span> <span class="text-gray-300">Finalize analysis report</span>
+            </div>
+            <div class="type-line" style="animation-delay: 2.1s">
+              <span class="text-yellow-400 ml-4">🟡</span> <span class="text-gray-300">Review PR #47</span>
+            </div>
+            <div class="type-line" style="animation-delay: 2.3s">
+              <span class="text-blue-400 ml-4">🔵</span> <span class="text-gray-300">Reply to client feedback</span>
+            </div>
+            <div class="type-line mt-4" style="animation-delay: 2.5s">
+              <span class="text-gray-400">⚠️</span> <span class="text-blue-300">From yesterday:</span>
+            </div>
+            <div class="type-line" style="animation-delay: 2.7s">
+              <span class="text-gray-500 ml-4">•</span> <span class="text-gray-400">Unit tests for data pipeline still pending</span>
+            </div>
+            <div class="type-line mt-4" style="animation-delay: 2.9s">
+              <span class="text-gray-400">🚀</span> <span class="text-green-300">Have a great day!</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-sm text-surface-800/40 mt-4">Real output from a ClawFlow morning brief. Calendar, tasks, and context — zero effort.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-16 md:py-24 bg-surface-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Three steps. That's it.</h2>
+        <p class="text-surface-800/60">No configuration rabbit holes. No YAML nightmares.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="reveal" style="transition-delay: 0.1s">
+          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4">1</div>
+          <h3 class="font-semibold text-lg mb-2">Install the skill</h3>
+          <p class="text-surface-800/60 text-sm leading-relaxed">One command on ClawHub. Takes about 30 seconds. The setup wizard handles the rest.</p>
+          <code class="block mt-3 text-xs font-mono text-claw-700 bg-claw-50 px-3 py-2 rounded-lg">clawhub install clawflow</code>
+        </div>
+
+        <div class="reveal" style="transition-delay: 0.2s">
+          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4">2</div>
+          <h3 class="font-semibold text-lg mb-2">Connect your tools</h3>
+          <p class="text-surface-800/60 text-sm leading-relaxed">Todoist, Google Calendar — whatever you use. The wizard walks you through each one.</p>
+        </div>
+
+        <div class="reveal" style="transition-delay: 0.3s">
+          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4">3</div>
+          <h3 class="font-semibold text-lg mb-2">Forget about it</h3>
+          <p class="text-surface-800/60 text-sm leading-relaxed">Morning brief at 9 AM. Daily summary at 4 PM. Weekly review on Friday. It just runs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Everything you need. Nothing you don't.</h2>
+        <p class="text-surface-800/60">A complete system, not a pile of scripts.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <div class="text-2xl mb-3">🌅</div>
+          <h3 class="font-semibold mb-2">Morning Briefs</h3>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Your agenda, tasks, and yesterday's open items — delivered before you've had coffee. Pulls from Calendar, Todoist, and your memory files.</p>
+        </div>
+
+        <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <div class="text-2xl mb-3">🌙</div>
+          <h3 class="font-semibold mb-2">Daily Summaries</h3>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Automatically logs what you did, what's pending, and what's up tomorrow. Saved to memory — searchable forever.</p>
+        </div>
+
+        <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <div class="text-2xl mb-3">📊</div>
+          <h3 class="font-semibold mb-2">Weekly Reviews</h3>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Every Friday: what you shipped, what slipped, what's next. Spot patterns before they become problems.</p>
+          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium">Complete only</span>
+        </div>
+
+        <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <div class="text-2xl mb-3">📁</div>
+          <h3 class="font-semibold mb-2">Multi-Project Support</h3>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Track multiple clients, codebases, or work streams separately. Per-project summaries, one unified view.</p>
+          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium">Complete only</span>
+        </div>
+
+        <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <div class="text-2xl mb-3">🔍</div>
+          <h3 class="font-semibold mb-2">Memory Search</h3>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Semantic search through all your daily notes and summaries. "What did I decide about the API redesign?" — instant answer.</p>
+          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium">Complete only</span>
+        </div>
+
+        <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <div class="text-2xl mb-3">🔗</div>
+          <h3 class="font-semibold mb-2">Integrations</h3>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Todoist, Google Calendar, GitHub, Notion — connect what you already use. Everything flows into your briefs and summaries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing / Comparison -->
+  <section id="pricing" class="py-16 md:py-24 bg-surface-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Start free. Upgrade when you're ready.</h2>
+        <p class="text-surface-800/60">No subscription. Pay once, own it forever.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Free -->
+        <div class="bg-white border border-surface-200 rounded-2xl p-8 reveal">
+          <div class="mb-6">
+            <h3 class="font-bold text-xl mb-1">ClawFlow Basic</h3>
+            <p class="text-surface-800/50 text-sm">Get started with the essentials</p>
+          </div>
+          <div class="mb-8">
+            <span class="text-4xl font-extrabold">Free</span>
+            <span class="text-surface-800/40 text-sm ml-1">on ClawHub</span>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Manual morning brief (on demand)</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Manual daily summary (on demand)</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Single workspace</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Todoist + Calendar (basic)</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>15-minute setup</span>
+            </li>
+            <li class="flex gap-3 items-start text-surface-800/40">
+              <svg class="w-5 h-5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              <span>No automation (manual triggers only)</span>
+            </li>
+            <li class="flex gap-3 items-start text-surface-800/40">
+              <svg class="w-5 h-5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              <span>No weekly reviews or memory search</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full text-center border border-surface-200 text-surface-800 py-3 rounded-xl font-semibold hover:bg-surface-50 transition-colors">
+            Install on ClawHub
+          </a>
+        </div>
+
+        <!-- Paid -->
+        <div class="bg-white border-2 border-claw-500 rounded-2xl p-8 relative reveal">
+          <div class="absolute -top-3 left-6 bg-claw-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+            Most popular
+          </div>
+          <div class="mb-6">
+            <h3 class="font-bold text-xl mb-1">ClawFlow Complete</h3>
+            <p class="text-surface-800/50 text-sm">Full automation. Zero maintenance.</p>
+          </div>
+          <div class="mb-8">
+            <span class="text-4xl font-extrabold">$99</span>
+            <span class="text-surface-800/40 text-sm ml-1">one-time · lifetime access</span>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Automated</strong> morning brief (9 AM daily)</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Automated</strong> daily summary (4 PM daily)</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Weekly reviews + monthly rollups</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Multi-project support (unlimited)</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Memory search (semantic + keyword)</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Advanced integrations (GitHub, Notion)</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Session report collection</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Google Drive backups</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Full docs + customization playbook</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Community access + priority support</span>
+            </li>
+          </ul>
+          <a href="#early-access" class="block w-full text-center bg-claw-600 text-white py-3 rounded-xl font-semibold hover:bg-claw-700 transition-colors">
+            Get Early Access →
+          </a>
+          <p class="text-center text-xs text-surface-800/40 mt-3">Launching April 10 · Early bird pricing available</p>
+        </div>
+      </div>
+
+      <!-- Value callout -->
+      <div class="max-w-2xl mx-auto mt-12 text-center reveal">
+        <div class="bg-claw-50 border border-claw-100 rounded-xl p-6">
+          <p class="text-sm text-claw-900 leading-relaxed">
+            <strong>Building this yourself takes 30+ hours.</strong> At even $50/hour, that's $1,500 of your time. ClawFlow Complete gives you a tested, documented system for $99. You're not buying a template — you're buying back a week of your life.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Authority -->
+  <section class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl mx-auto reveal">
+        <div class="flex flex-col sm:flex-row gap-6 items-start">
+          <div class="w-16 h-16 bg-claw-100 rounded-2xl flex items-center justify-center text-3xl shrink-0">
+            🦝
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold mb-4">Built by someone who actually uses it</h2>
+            <div class="space-y-4 text-surface-800/70 leading-relaxed">
+              <p>
+                I'm Koen — Lead Data Scientist, 10+ years in the field. I manage multiple projects simultaneously, and I was drowning in context switching.
+              </p>
+              <p>
+                So I built a system. Automated morning briefs to start my day with clarity. Daily summaries so I never lose track of what I worked on. Weekly reviews to spot problems before they escalate.
+              </p>
+              <p>
+                I've been running this system daily for 2 months. It works. And I got tired of seeing other OpenClaw users struggle with the same problems I solved, so I packaged it up.
+              </p>
+              <p class="text-surface-800/50 text-sm">
+                <strong class="text-surface-800/70">Dr. Data Science</strong> · Lead Data Scientist · Building tools for knowledge workers
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 md:py-24 bg-surface-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold">Common questions</h2>
+      </div>
+
+      <div class="max-w-2xl mx-auto space-y-6 reveal">
+        <details class="group bg-white border border-surface-100 rounded-xl">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
+            "I could build this myself."
+            <svg class="w-5 h-5 text-surface-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-surface-800/60 leading-relaxed">
+            Absolutely. That's exactly what I did — it took about 30 hours to get right. The cron orchestration, the memory search integration, the multi-project architecture, the edge cases. ClawFlow saves you that time. You're buying proven workflows, not just code.
+          </div>
+        </details>
+
+        <details class="group bg-white border border-surface-100 rounded-xl">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
+            What do I need to run ClawFlow?
+            <svg class="w-5 h-5 text-surface-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-surface-800/60 leading-relaxed">
+            OpenClaw (the free version works fine). Optionally: a Todoist account and Google Calendar for integrations. The free skill runs on any OpenClaw setup. The Complete template works best with the OpenClaw cron system.
+          </div>
+        </details>
+
+        <details class="group bg-white border border-surface-100 rounded-xl">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
+            Is this a subscription?
+            <svg class="w-5 h-5 text-surface-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-surface-800/60 leading-relaxed">
+            No. $99 once. You own it forever. Future updates included. No recurring fees, no "pro tier," no bait-and-switch.
+          </div>
+        </details>
+
+        <details class="group bg-white border border-surface-100 rounded-xl">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
+            Is my data private?
+            <svg class="w-5 h-5 text-surface-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-surface-800/60 leading-relaxed">
+            100%. Everything runs locally on your machine through OpenClaw. No data leaves your computer. No cloud, no analytics, no tracking. Your notes, your summaries, your memory — all yours.
+          </div>
+        </details>
+
+        <details class="group bg-white border border-surface-100 rounded-xl">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
+            Can I customize the schedule and format?
+            <svg class="w-5 h-5 text-surface-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-surface-800/60 leading-relaxed">
+            Yes. Change cron times, modify brief templates, add integrations, adjust the output format. The Complete template includes a full customization playbook that walks you through everything.
+          </div>
+        </details>
+
+        <details class="group bg-white border border-surface-100 rounded-xl">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
+            What if it doesn't work for me?
+            <svg class="w-5 h-5 text-surface-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-surface-800/60 leading-relaxed">
+            Try the free skill first — it gives you a taste of the system with no risk. If the Complete template doesn't meet your expectations, reach out. I want this to work for you.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email Capture / CTA -->
+  <section id="early-access" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-xl mx-auto text-center reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Get early access to ClawFlow Complete</h2>
+        <p class="text-surface-800/60 mb-8">
+          The paid template launches April 10. Join the list for early bird pricing and first access.
+        </p>
+
+        <!-- Email form — replace action with your email service -->
+        <form id="email-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="handleSubmit(event)">
+          <input
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+            class="flex-1 px-4 py-3 border border-surface-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-claw-500 focus:border-transparent"
+          >
+          <button type="submit" class="bg-claw-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-claw-700 transition-colors whitespace-nowrap text-sm">
+            Notify Me
+          </button>
+        </form>
+
+        <p id="form-success" class="hidden text-sm text-green-600 mt-4">
+          ✓ You're on the list! We'll email you when ClawFlow Complete is ready.
+        </p>
+
+        <p class="text-xs text-surface-800/40 mt-4">No spam. One email when it launches. Unsubscribe anytime.</p>
+
+        <div class="mt-8 pt-8 border-t border-surface-100">
+          <p class="text-sm text-surface-800/50 mb-3">Want to try the free version right now?</p>
+          <a href="#" class="inline-flex items-center gap-2 text-claw-600 font-medium text-sm hover:text-claw-700 transition-colors">
+            Install ClawFlow Basic on ClawHub
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-surface-100 py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-2 text-sm text-surface-800/50">
+          <span>🦝</span>
+          <span>ClawFlow by <strong>Dr. Data Science</strong></span>
+        </div>
+        <div class="flex gap-6 text-sm text-surface-800/40">
+          <a href="mailto:koen@drdata.science" class="hover:text-surface-800/60 transition-colors">Contact</a>
+          <a href="#" class="hover:text-surface-800/60 transition-colors">GitHub</a>
+          <a href="#" class="hover:text-surface-800/60 transition-colors">ClawHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Email form handler (placeholder — replace with real email service)
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('email-form');
+      const success = document.getElementById('form-success');
+
+      // TODO: Replace with ConvertKit/Mailchimp/Buttondown integration
+      // For now, just show success message
+      form.style.display = 'none';
+      success.classList.remove('hidden');
+
+      // Store email in localStorage as fallback
+      const email = form.querySelector('input[name="email"]').value;
+      const emails = JSON.parse(localStorage.getItem('clawflow-emails') || '[]');
+      emails.push({ email, date: new Date().toISOString() });
+      localStorage.setItem('clawflow-emails', JSON.stringify(emails));
+    }
+  </script>
+</body>
+</html>
