@@ -54,8 +54,8 @@
   }
   </script>
 
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦝</text></svg>">
+  <!-- Favicon — terminal prompt -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -65,26 +65,26 @@
         extend: {
           colors: {
             claw: {
-              50: '#f0f7ff',
-              100: '#e0effe',
-              200: '#b9dffd',
-              300: '#7cc5fc',
-              400: '#36a8f8',
-              500: '#0c8ce9',
-              600: '#006fc7',
-              700: '#0059a2',
-              800: '#054c85',
-              900: '#0a3f6e',
-              950: '#072849',
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
             },
             surface: {
-              50: '#fafafa',
-              100: '#f4f4f5',
-              200: '#e4e4e7',
-              300: '#d4d4d8',
-              800: '#27272a',
-              900: '#18181b',
-              950: '#09090b',
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617',
             }
           },
           fontFamily: {
@@ -107,13 +107,13 @@
 
     /* Terminal window styling */
     .terminal {
-      background: #1a1a2e;
-      border-radius: 12px;
+      background: #0d1117;
+      border-radius: 0 0 12px 12px;
       overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
     }
     .terminal-bar {
-      background: #16162a;
+      background: #161b22;
       padding: 12px 16px;
       display: flex;
       align-items: center;
@@ -131,9 +131,53 @@
       line-height: 1.7;
       color: #e2e8f0;
       overflow-x: auto;
+      min-height: 320px;
+      max-height: 480px;
+      overflow-y: auto;
+    }
+    .terminal-body::-webkit-scrollbar { width: 6px; }
+    .terminal-body::-webkit-scrollbar-track { background: transparent; }
+    .terminal-body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+
+    /* Terminal tabs */
+    .terminal-tabs {
+      display: flex;
+      background: #0d1117;
+      border-radius: 12px 12px 0 0;
+      overflow-x: auto;
+      padding: 0 8px;
+      gap: 2px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .terminal-tabs::-webkit-scrollbar { display: none; }
+    .demo-tab {
+      padding: 10px 16px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #8b949e;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .demo-tab:hover { color: #c9d1d9; }
+    .demo-tab.active {
+      color: #10b981;
+      border-bottom-color: #10b981;
+      background: #161b22;
     }
 
-    /* Typing animation for terminal */
+    /* Tab panel animation */
+    .tab-panel { animation: panelFadeIn 0.35s ease; }
+    @keyframes panelFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typing animation for first load */
     .type-line {
       opacity: 0;
       animation: fadeInLine 0.3s ease forwards;
@@ -144,7 +188,7 @@
 
     /* Gradient text */
     .gradient-text {
-      background: linear-gradient(135deg, #0c8ce9 0%, #36a8f8 50%, #7cc5fc 100%);
+      background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -153,8 +197,8 @@
     /* Subtle grid background */
     .grid-bg {
       background-image:
-        linear-gradient(rgba(12, 140, 233, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(12, 140, 233, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
       background-size: 64px 64px;
     }
 
@@ -164,26 +208,18 @@
     }
     .feature-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 40px -10px rgba(12, 140, 233, 0.15);
-    }
-
-    /* Comparison table */
-    .comparison-check {
-      color: #0c8ce9;
-    }
-    .comparison-x {
-      color: #a1a1aa;
+      box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.15);
     }
 
     /* CTA pulse */
     .cta-glow {
-      box-shadow: 0 0 0 0 rgba(12, 140, 233, 0.4);
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
       animation: pulse-glow 2s infinite;
     }
     @keyframes pulse-glow {
-      0% { box-shadow: 0 0 0 0 rgba(12, 140, 233, 0.4); }
-      70% { box-shadow: 0 0 0 10px rgba(12, 140, 233, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(12, 140, 233, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
 
     /* Scroll animation */
@@ -196,6 +232,17 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* Terminal text helpers */
+    .t-prompt { color: #10b981; opacity: 0.5; }
+    .t-h1 { color: #34d399; font-weight: 700; font-size: 14px; }
+    .t-h2 { color: #6ee7b7; font-weight: 600; }
+    .t-h3 { color: #a7f3d0; font-weight: 500; }
+    .t-muted { color: #8b949e; }
+    .t-accent { color: #10b981; }
+    .t-text { color: #c9d1d9; }
+    .t-bold { color: #e6edf3; font-weight: 600; }
+    .t-dim { color: #484f58; }
   </style>
 </head>
 <body class="bg-white text-surface-900 font-sans">
@@ -203,8 +250,8 @@
   <!-- Nav -->
   <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-lg border-b border-surface-100 z-50">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="#" class="flex items-center gap-2.5 font-bold text-lg">
-        <span class="text-2xl">🦝</span>
+      <a href="#" class="flex items-center gap-2 font-bold text-lg font-mono">
+        <span class="text-claw-500">⚡</span>
         <span>ClawFlow</span>
       </a>
       <div class="hidden md:flex items-center gap-8 text-sm text-surface-800">
@@ -213,14 +260,12 @@
         <a href="#pricing" class="hover:text-claw-600 transition-colors">Pricing</a>
         <a href="#early-access" class="bg-claw-600 text-white px-4 py-2 rounded-lg hover:bg-claw-700 transition-colors font-medium">Get Early Access</a>
       </div>
-      <!-- Mobile menu button -->
       <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
     </div>
-    <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden border-t border-surface-100 bg-white">
       <div class="px-6 py-4 flex flex-col gap-4 text-sm">
         <a href="#features" class="hover:text-claw-600">Features</a>
@@ -235,8 +280,7 @@
   <section class="grid-bg pt-32 pb-20 md:pt-40 md:pb-28">
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-3xl">
-        <!-- Eyebrow -->
-        <div class="inline-flex items-center gap-2 bg-claw-50 text-claw-700 text-sm font-medium px-3 py-1.5 rounded-full mb-6">
+        <div class="inline-flex items-center gap-2 bg-claw-50 text-claw-700 text-sm font-medium px-3 py-1.5 rounded-full mb-6 font-mono">
           <span class="w-2 h-2 bg-claw-500 rounded-full animate-pulse"></span>
           Launching March 13 — Free skill available on ClawHub
         </div>
@@ -259,7 +303,7 @@
           </a>
         </div>
 
-        <p class="text-sm text-surface-800/50 mt-4">Free skill available now · Paid template $99 one-time</p>
+        <p class="text-sm text-surface-800/50 mt-4 font-mono">Free skill available now · Paid template $99 one-time</p>
       </div>
     </div>
   </section>
@@ -271,19 +315,19 @@
         <h2 class="text-2xl md:text-3xl font-bold mb-6">Sound familiar?</h2>
         <div class="grid gap-4 text-left max-w-lg mx-auto">
           <div class="flex gap-3 items-start">
-            <span class="text-surface-300 mt-0.5 text-lg">→</span>
+            <span class="text-claw-400 mt-0.5 text-lg font-mono">→</span>
             <p class="text-surface-800/70">You spend 20 minutes every morning piecing together your agenda from 4 different apps</p>
           </div>
           <div class="flex gap-3 items-start">
-            <span class="text-surface-300 mt-0.5 text-lg">→</span>
+            <span class="text-claw-400 mt-0.5 text-lg font-mono">→</span>
             <p class="text-surface-800/70">You can't remember what you worked on last Thursday</p>
           </div>
           <div class="flex gap-3 items-start">
-            <span class="text-surface-300 mt-0.5 text-lg">→</span>
+            <span class="text-claw-400 mt-0.5 text-lg font-mono">→</span>
             <p class="text-surface-800/70">You installed OpenClaw, got excited, then&hellip; it just sits there</p>
           </div>
           <div class="flex gap-3 items-start">
-            <span class="text-surface-300 mt-0.5 text-lg">→</span>
+            <span class="text-claw-400 mt-0.5 text-lg font-mono">→</span>
             <p class="text-surface-800/70">You know you <em>could</em> automate this. You just don't have 30 hours to figure it out</p>
           </div>
         </div>
@@ -291,71 +335,165 @@
     </div>
   </section>
 
-  <!-- Demo / Terminal -->
+  <!-- Demo / Terminal with Tabs -->
   <section id="demo" class="py-16 md:py-24">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-12 reveal">
-        <h2 class="text-2xl md:text-3xl font-bold mb-3">This is what 9:00 AM looks like with ClawFlow</h2>
-        <p class="text-surface-800/60">Delivered to your chat. Automatically. Every workday.</p>
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">See the real output</h2>
+        <p class="text-surface-800/60">These are actual ClawFlow outputs. Not mockups. Not aspirational demos.</p>
       </div>
 
-      <div class="max-w-2xl mx-auto reveal">
+      <div class="max-w-3xl mx-auto reveal">
+        <!-- Terminal Tabs -->
+        <div class="terminal-tabs">
+          <button onclick="switchTab('morning')" class="demo-tab active" id="btn-morning">morning-brief</button>
+          <button onclick="switchTab('daily')" class="demo-tab" id="btn-daily">daily-summary</button>
+          <button onclick="switchTab('weekly')" class="demo-tab" id="btn-weekly">weekly-review</button>
+          <button onclick="switchTab('search')" class="demo-tab" id="btn-search">memory-search</button>
+          <button onclick="switchTab('projects')" class="demo-tab" id="btn-projects">projects</button>
+        </div>
+
+        <!-- Terminal Window -->
         <div class="terminal">
           <div class="terminal-bar">
             <div class="terminal-dot bg-red-400"></div>
             <div class="terminal-dot bg-yellow-400"></div>
             <div class="terminal-dot bg-green-400"></div>
-            <span class="text-xs text-gray-400 ml-2 font-mono">morning-brief — OpenClaw</span>
+            <span class="text-xs text-gray-500 ml-2 font-mono" id="terminal-title">~/clawflow $ cat briefs/2026-03-09.md</span>
           </div>
-          <div class="terminal-body">
-            <div class="type-line" style="animation-delay: 0.1s">
-              <span class="text-gray-400">🦝</span> <span class="text-blue-300 font-medium">Good morning, Koen!</span>
+          <div class="terminal-body" id="terminal-content">
+
+            <!-- Morning Brief Panel -->
+            <div class="tab-panel" id="panel-morning">
+              <div class="type-line" style="animation-delay: 0.1s">
+                <span class="t-accent font-medium text-base">☀️ Good morning!</span>
+              </div>
+              <div class="type-line mt-2" style="animation-delay: 0.2s">
+                <span class="t-muted">📅</span> <span class="t-text">Monday, 9 March 2026</span>
+              </div>
+              <div class="type-line mt-4" style="animation-delay: 0.3s">
+                <span class="t-muted">🙏</span> <span class="t-accent">Daily Intention</span>
+              </div>
+              <div class="type-line" style="animation-delay: 0.4s">
+                <span class="t-text ml-4 italic">"Focus on what's important, not what's urgent."</span>
+              </div>
+              <div class="type-line mt-4" style="animation-delay: 0.5s">
+                <span class="t-muted">🎯</span> <span class="t-accent">Focus</span>
+              </div>
+              <div class="type-line" style="animation-delay: 0.6s">
+                <span class="t-text ml-4">Data science excellence and impactful projects</span>
+              </div>
+              <div class="type-line mt-4" style="animation-delay: 0.7s">
+                <span class="t-muted">📅</span> <span class="t-accent">Agenda:</span>
+              </div>
+              <div class="type-line" style="animation-delay: 0.8s">
+                <span class="t-text ml-4">09:30–10:30: Team kickoff meeting</span>
+              </div>
+              <div class="type-line" style="animation-delay: 0.9s">
+                <span class="t-dim ml-8">💡 Context: First day for new intern, 6-month contract</span>
+              </div>
+              <div class="type-line" style="animation-delay: 1.0s">
+                <span class="t-text ml-4">12:00–13:00: 🍱 Lunch</span>
+              </div>
+              <div class="type-line" style="animation-delay: 1.1s">
+                <span class="t-text ml-4">13:45–14:45: Landing page design · Product Launch</span>
+              </div>
+              <div class="type-line mt-4" style="animation-delay: 1.2s">
+                <span class="t-muted">✅</span> <span class="t-accent">Tasks:</span>
+              </div>
+              <div class="type-line" style="animation-delay: 1.3s">
+                <span class="text-red-400 ml-4">🔴</span> <span class="t-text">[2H] Finish impact analysis</span>
+              </div>
+              <div class="type-line" style="animation-delay: 1.4s">
+                <span class="text-yellow-400 ml-4">🟡</span> <span class="t-text">Deploy staging environment</span>
+              </div>
             </div>
-            <div class="type-line mt-3" style="animation-delay: 0.3s">
-              <span class="text-gray-400">📅</span> <span class="text-gray-300">Monday, 10 March 2026</span>
+
+            <!-- Daily Summary Panel -->
+            <div class="tab-panel hidden" id="panel-daily">
+              <div class="t-h1"># Daily Summary 2026-03-06</div>
+              <div class="mt-4 t-h2">## What was done</div>
+              <div class="mt-3 t-h3">### Project A — Feature Implementation</div>
+              <div class="t-text ml-4">- Completed schema validation (Issue #63)</div>
+              <div class="t-text ml-4">- Test coverage: 69 → 92 passing tests</div>
+              <div class="t-text ml-4">- Added dependencies: langdetect library</div>
+              <div class="mt-3 t-h3">### Project B — Launch Planning</div>
+              <div class="t-text ml-4">- Built free skill (complete)</div>
+              <div class="t-text ml-4">- GitHub repo setup</div>
+              <div class="t-text ml-4">- Testing on clean install ✅</div>
+              <div class="mt-4 t-h2">## Documents created/updated</div>
+              <div class="t-text ml-4">- /docs/feature-spec.md</div>
+              <div class="t-text ml-4">- README.md updates</div>
+              <div class="mt-4 t-h2">## Decisions &amp; insights</div>
+              <div class="t-text ml-4">- Chose langdetect over lingua (lightweight, sufficient)</div>
+              <div class="t-text ml-4">- Config-driven approach for extensibility</div>
+              <div class="mt-4 t-h2">## Open items</div>
+              <div class="t-text ml-4">- Presentation not scheduled yet</div>
+              <div class="t-text ml-4">- Code review pending</div>
             </div>
-            <div class="type-line mt-4" style="animation-delay: 0.5s">
-              <span class="text-gray-400">🎯</span> <span class="text-blue-300">Focus:</span> <span class="text-gray-300">Ship ClawFlow landing page</span>
+
+            <!-- Weekly Review Panel -->
+            <div class="tab-panel hidden" id="panel-weekly">
+              <div class="t-h1"># Weekly Review 2026-W10</div>
+              <div class="mt-4 t-h2">## Per Project</div>
+              <div class="mt-3 t-h3">### Project A</div>
+              <div class="t-bold ml-4">Achieved:</div>
+              <div class="t-text ml-4">- 3 user stories completed</div>
+              <div class="t-text ml-4">- Test coverage 69→92 tests</div>
+              <div class="t-bold ml-4 mt-2">Unfinished:</div>
+              <div class="t-text ml-4">- Presentation prep</div>
+              <div class="mt-3 t-h3">### Project B</div>
+              <div class="t-bold ml-4">Achieved:</div>
+              <div class="t-text ml-4">- Free skill built and tested</div>
+              <div class="t-text ml-4">- Launch playbook complete (27KB doc)</div>
+              <div class="mt-4 t-h2">## Decisions Log</div>
+              <div class="t-text ml-4">- Privacy strategy pivot: Azure primary</div>
+              <div class="t-text ml-4">- langdetect library choice</div>
+              <div class="mt-4 t-h2">## Contacts Log</div>
+              <div class="t-text ml-4">- Stakeholder X: Agreed on timeline</div>
+              <div class="t-text ml-4">- Team member Y: Onboarding plan finalized</div>
             </div>
-            <div class="type-line mt-4" style="animation-delay: 0.7s">
-              <span class="text-gray-400">📅</span> <span class="text-blue-300">Agenda:</span>
+
+            <!-- Memory Search Panel -->
+            <div class="tab-panel hidden" id="panel-search">
+              <div class="t-prompt mb-4">~/clawflow $ search "privacy strategy decision"</div>
+              <div class="t-accent mb-3">Found 2 results:</div>
+              <div class="t-muted">1.</div>
+              <div class="t-text ml-4">
+                <span class="t-dim">memory/2026-03-05.md#45</span>
+              </div>
+              <div class="ml-4 mt-1 pl-3 border-l-2 border-emerald-800">
+                <span class="t-text">"Privacy strategy pivot: Azure primary (cost, scale, support)"</span>
+              </div>
+              <div class="t-muted mt-4">2.</div>
+              <div class="t-text ml-4">
+                <span class="t-dim">memory/weekly/2026-W10.md#23</span>
+              </div>
+              <div class="ml-4 mt-1 pl-3 border-l-2 border-emerald-800">
+                <span class="t-text">"Privacy strategy: Azure primary (enterprise support)"</span>
+              </div>
+              <div class="mt-6 t-dim">── 2 matches across 2 files (0.12s)</div>
             </div>
-            <div class="type-line" style="animation-delay: 0.9s">
-              <span class="text-gray-500 ml-4">09:00</span> <span class="text-gray-300">Morning Routine</span>
+
+            <!-- Projects Panel -->
+            <div class="tab-panel hidden" id="panel-projects">
+              <div class="t-prompt mb-4">~/clawflow $ cat projects.json</div>
+              <div class="t-accent mb-3">Projects configured:</div>
+              <div class="mt-2">
+                <span class="text-green-400">✓</span> <span class="t-bold">Product Launch</span> <span class="t-dim">(active, Mon/Wed/Fri)</span>
+              </div>
+              <div class="mt-1">
+                <span class="text-green-400">✓</span> <span class="t-bold">Client Research</span> <span class="t-dim">(active, Mon–Fri)</span>
+              </div>
+              <div class="mt-1">
+                <span class="text-green-400">✓</span> <span class="t-bold">Team Onboarding</span> <span class="t-dim">(active, Mon/Wed/Thu)</span>
+              </div>
+              <div class="mt-6 t-dim">── Each project gets its own daily summary, weekly review, and memory namespace.</div>
             </div>
-            <div class="type-line" style="animation-delay: 1.1s">
-              <span class="text-gray-500 ml-4">10:00</span> <span class="text-gray-300">SZW Project — Data Analysis</span>
-            </div>
-            <div class="type-line" style="animation-delay: 1.3s">
-              <span class="text-gray-500 ml-4">14:00</span> <span class="text-gray-300">Team Standup</span>
-            </div>
-            <div class="type-line" style="animation-delay: 1.5s">
-              <span class="text-gray-500 ml-4">16:00</span> <span class="text-gray-300">1:1 with Manager</span>
-            </div>
-            <div class="type-line mt-4" style="animation-delay: 1.7s">
-              <span class="text-gray-400">✅</span> <span class="text-blue-300">Tasks:</span>
-            </div>
-            <div class="type-line" style="animation-delay: 1.9s">
-              <span class="text-red-400 ml-4">🔴</span> <span class="text-gray-300">Finalize analysis report</span>
-            </div>
-            <div class="type-line" style="animation-delay: 2.1s">
-              <span class="text-yellow-400 ml-4">🟡</span> <span class="text-gray-300">Review PR #47</span>
-            </div>
-            <div class="type-line" style="animation-delay: 2.3s">
-              <span class="text-blue-400 ml-4">🔵</span> <span class="text-gray-300">Reply to client feedback</span>
-            </div>
-            <div class="type-line mt-4" style="animation-delay: 2.5s">
-              <span class="text-gray-400">⚠️</span> <span class="text-blue-300">From yesterday:</span>
-            </div>
-            <div class="type-line" style="animation-delay: 2.7s">
-              <span class="text-gray-500 ml-4">•</span> <span class="text-gray-400">Unit tests for data pipeline still pending</span>
-            </div>
-            <div class="type-line mt-4" style="animation-delay: 2.9s">
-              <span class="text-gray-400">🚀</span> <span class="text-green-300">Have a great day!</span>
-            </div>
+
           </div>
         </div>
-        <p class="text-center text-sm text-surface-800/40 mt-4">Real output from a ClawFlow morning brief. Calendar, tasks, and context — zero effort.</p>
+        <p class="text-center text-sm text-surface-800/40 mt-4 font-mono">Real output formats from ClawFlow. Calendar, tasks, memory — zero effort.</p>
       </div>
     </div>
   </section>
@@ -370,20 +508,20 @@
 
       <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
         <div class="reveal" style="transition-delay: 0.1s">
-          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4">1</div>
+          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4 font-mono">1</div>
           <h3 class="font-semibold text-lg mb-2">Install the skill</h3>
           <p class="text-surface-800/60 text-sm leading-relaxed">One command on ClawHub. Takes about 30 seconds. The setup wizard handles the rest.</p>
           <code class="block mt-3 text-xs font-mono text-claw-700 bg-claw-50 px-3 py-2 rounded-lg">clawhub install clawflow</code>
         </div>
 
         <div class="reveal" style="transition-delay: 0.2s">
-          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4">2</div>
+          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4 font-mono">2</div>
           <h3 class="font-semibold text-lg mb-2">Connect your tools</h3>
           <p class="text-surface-800/60 text-sm leading-relaxed">Todoist, Google Calendar — whatever you use. The wizard walks you through each one.</p>
         </div>
 
         <div class="reveal" style="transition-delay: 0.3s">
-          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4">3</div>
+          <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4 font-mono">3</div>
           <h3 class="font-semibold text-lg mb-2">Forget about it</h3>
           <p class="text-surface-800/60 text-sm leading-relaxed">Morning brief at 9 AM. Daily summary at 4 PM. Weekly review on Friday. It just runs.</p>
         </div>
@@ -409,41 +547,123 @@
         <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
           <div class="text-2xl mb-3">🌙</div>
           <h3 class="font-semibold mb-2">Daily Summaries</h3>
-          <p class="text-sm text-surface-800/60 leading-relaxed">Automatically logs what you did, what's pending, and what's up tomorrow. Saved to memory — searchable forever.</p>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Automatically captures what you worked on, what's pending, and what's up tomorrow. Saved to memory — searchable forever.</p>
         </div>
 
         <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
           <div class="text-2xl mb-3">📊</div>
           <h3 class="font-semibold mb-2">Weekly Reviews</h3>
           <p class="text-sm text-surface-800/60 leading-relaxed">Every Friday: what you shipped, what slipped, what's next. Spot patterns before they become problems.</p>
-          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium">Complete only</span>
+          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium font-mono">Complete only</span>
         </div>
 
         <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
           <div class="text-2xl mb-3">📁</div>
           <h3 class="font-semibold mb-2">Multi-Project Support</h3>
           <p class="text-sm text-surface-800/60 leading-relaxed">Track multiple clients, codebases, or work streams separately. Per-project summaries, one unified view.</p>
-          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium">Complete only</span>
+          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium font-mono">Complete only</span>
         </div>
 
         <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
           <div class="text-2xl mb-3">🔍</div>
           <h3 class="font-semibold mb-2">Memory Search</h3>
           <p class="text-sm text-surface-800/60 leading-relaxed">Semantic search through all your daily notes and summaries. "What did I decide about the API redesign?" — instant answer.</p>
-          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium">Complete only</span>
+          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium font-mono">Complete only</span>
         </div>
 
         <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
           <div class="text-2xl mb-3">🔗</div>
           <h3 class="font-semibold mb-2">Integrations</h3>
-          <p class="text-sm text-surface-800/60 leading-relaxed">Todoist, Google Calendar, GitHub, Notion — connect what you already use. Everything flows into your briefs and summaries.</p>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Todoist, Google Calendar, Asana, Linear, Outlook, GitHub Projects — connect what you already use. Everything flows into your briefs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations Detail -->
+  <section class="py-16 md:py-24 bg-surface-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Pre-built integrations</h2>
+        <p class="text-surface-800/60 font-mono">6 at launch · 9 by April</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
+        <div class="bg-white border border-surface-100 rounded-xl p-6 text-center reveal">
+          <div class="text-2xl mb-3">✅</div>
+          <h3 class="font-semibold mb-2">Tasks</h3>
+          <p class="text-sm text-surface-800/60">Todoist · Asana · Linear</p>
+        </div>
+        <div class="bg-white border border-surface-100 rounded-xl p-6 text-center reveal">
+          <div class="text-2xl mb-3">📅</div>
+          <h3 class="font-semibold mb-2">Calendar</h3>
+          <p class="text-sm text-surface-800/60">Google Calendar · Outlook</p>
+        </div>
+        <div class="bg-white border border-surface-100 rounded-xl p-6 text-center reveal">
+          <div class="text-2xl mb-3">📂</div>
+          <h3 class="font-semibold mb-2">Projects</h3>
+          <p class="text-sm text-surface-800/60">GitHub Projects</p>
+        </div>
+      </div>
+
+      <div class="text-center mb-10 reveal">
+        <p class="text-sm text-surface-800/50 font-mono">Coming in April: GitLab · Notion · Obsidian</p>
+      </div>
+
+      <!-- Free vs Paid integration comparison -->
+      <div class="max-w-2xl mx-auto reveal">
+        <div class="bg-white border border-surface-100 rounded-xl overflow-hidden">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-surface-100">
+                <th class="text-left p-4 font-semibold"></th>
+                <th class="text-center p-4 font-semibold">Basic <span class="font-normal text-surface-800/40">(free)</span></th>
+                <th class="text-center p-4 font-semibold text-claw-700">Complete <span class="font-normal text-surface-800/40">($99)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-surface-50">
+                <td class="p-4 text-surface-800/70">Todoist</td>
+                <td class="p-4 text-center text-claw-500">✓</td>
+                <td class="p-4 text-center text-claw-500">✓</td>
+              </tr>
+              <tr class="border-b border-surface-50">
+                <td class="p-4 text-surface-800/70">Google Calendar</td>
+                <td class="p-4 text-center text-claw-500">✓</td>
+                <td class="p-4 text-center text-claw-500">✓</td>
+              </tr>
+              <tr class="border-b border-surface-50">
+                <td class="p-4 text-surface-800/70">Asana, Linear, Outlook, GitHub</td>
+                <td class="p-4 text-center text-surface-300">—</td>
+                <td class="p-4 text-center text-claw-500">✓</td>
+              </tr>
+              <tr class="border-b border-surface-50">
+                <td class="p-4 text-surface-800/70">Roadmap tools (GitLab, Notion, Obsidian)</td>
+                <td class="p-4 text-center text-surface-300">—</td>
+                <td class="p-4 text-center text-claw-500">✓</td>
+              </tr>
+              <tr>
+                <td class="p-4 text-surface-800/70">1 custom integration setup</td>
+                <td class="p-4 text-center text-surface-300">—</td>
+                <td class="p-4 text-center text-claw-500">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="max-w-2xl mx-auto mt-8 reveal">
+        <div class="bg-claw-50 border border-claw-100 rounded-xl p-6">
+          <p class="text-sm text-claw-900 leading-relaxed">
+            <strong>Use something else?</strong> Every paid template includes 1 custom integration setup via GitHub issue — no call needed, fully async. We configure it for you.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Pricing / Comparison -->
-  <section id="pricing" class="py-16 md:py-24 bg-surface-50">
+  <section id="pricing" class="py-16 md:py-24">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16 reveal">
         <h2 class="text-2xl md:text-3xl font-bold mb-3">Start free. Upgrade when you're ready.</h2>
@@ -476,7 +696,7 @@
             </li>
             <li class="flex gap-3 items-start">
               <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              <span>Todoist + Calendar (basic)</span>
+              <span>Todoist + Google Calendar</span>
             </li>
             <li class="flex gap-3 items-start">
               <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -532,11 +752,11 @@
             </li>
             <li class="flex gap-3 items-start">
               <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              <span>Advanced integrations (GitHub, Notion)</span>
+              <span>All 6 integrations + 1 custom setup</span>
             </li>
             <li class="flex gap-3 items-start">
               <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              <span>Session report collection</span>
+              <span>Automatically captures what you worked on</span>
             </li>
             <li class="flex gap-3 items-start">
               <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -548,7 +768,7 @@
             </li>
             <li class="flex gap-3 items-start">
               <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              <span>Community access + priority support</span>
+              <span>Priority support</span>
             </li>
           </ul>
           <a href="#early-access" class="block w-full text-center bg-claw-600 text-white py-3 rounded-xl font-semibold hover:bg-claw-700 transition-colors">
@@ -561,8 +781,9 @@
       <!-- Value callout -->
       <div class="max-w-2xl mx-auto mt-12 text-center reveal">
         <div class="bg-claw-50 border border-claw-100 rounded-xl p-6">
-          <p class="text-sm text-claw-900 leading-relaxed">
-            <strong>Building this yourself takes 30+ hours.</strong> At even $50/hour, that's $1,500 of your time. ClawFlow Complete gives you a tested, documented system for $99. You're not buying a template — you're buying back a week of your life.
+          <p class="text-lg text-claw-900 leading-relaxed font-semibold">
+            30 hours configuring. Or 30 minutes with ClawFlow.<br>
+            <span class="font-mono">$99 once. Not $99/month.</span>
           </p>
         </div>
       </div>
@@ -570,12 +791,12 @@
   </section>
 
   <!-- About / Authority -->
-  <section class="py-16 md:py-24">
+  <section class="py-16 md:py-24 bg-surface-50">
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-3xl mx-auto reveal">
         <div class="flex flex-col sm:flex-row gap-6 items-start">
-          <div class="w-16 h-16 bg-claw-100 rounded-2xl flex items-center justify-center text-3xl shrink-0">
-            🦝
+          <div class="w-16 h-16 bg-surface-900 rounded-2xl flex items-center justify-center text-claw-400 font-mono text-xl font-bold shrink-0">
+            &gt;_
           </div>
           <div>
             <h2 class="text-2xl font-bold mb-4">Built by someone who actually uses it</h2>
@@ -600,13 +821,13 @@
   </section>
 
   <!-- FAQ -->
-  <section class="py-16 md:py-24 bg-surface-50">
+  <section class="py-16 md:py-24">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-12 reveal">
         <h2 class="text-2xl md:text-3xl font-bold">Common questions</h2>
       </div>
 
-      <div class="max-w-2xl mx-auto space-y-6 reveal">
+      <div class="max-w-2xl mx-auto space-y-4 reveal">
         <details class="group bg-white border border-surface-100 rounded-xl">
           <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
             "I could build this myself."
@@ -666,12 +887,32 @@
             Try the free skill first — it gives you a taste of the system with no risk. If the Complete template doesn't meet your expectations, reach out. I want this to work for you.
           </div>
         </details>
+
+        <details class="group bg-white border border-surface-100 rounded-xl">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
+            What if I use ClickUp / Monday / Notion?
+            <svg class="w-5 h-5 text-surface-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-surface-800/60 leading-relaxed">
+            Every paid template includes 1 custom integration setup via GitHub issue. We configure it async — no call needed.
+          </div>
+        </details>
+
+        <details class="group bg-white border border-surface-100 rounded-xl">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-medium">
+            Can I use multiple task managers at once?
+            <svg class="w-5 h-5 text-surface-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-surface-800/60 leading-relaxed">
+            Yes! Use Todoist + Linear together. ClawFlow merges them in your briefs.
+          </div>
+        </details>
       </div>
     </div>
   </section>
 
   <!-- Email Capture / CTA -->
-  <section id="early-access" class="py-16 md:py-24">
+  <section id="early-access" class="py-16 md:py-24 bg-surface-50">
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-xl mx-auto text-center reveal">
         <h2 class="text-2xl md:text-3xl font-bold mb-3">Get early access to ClawFlow Complete</h2>
@@ -679,27 +920,26 @@
           The paid template launches April 10. Join the list for early bird pricing and first access.
         </p>
 
-        <!-- Email form — replace action with your email service -->
         <form id="email-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="handleSubmit(event)">
           <input
             type="email"
             name="email"
             placeholder="you@example.com"
             required
-            class="flex-1 px-4 py-3 border border-surface-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-claw-500 focus:border-transparent"
+            class="flex-1 px-4 py-3 border border-surface-200 rounded-xl text-sm font-mono focus:outline-none focus:ring-2 focus:ring-claw-500 focus:border-transparent"
           >
           <button type="submit" class="bg-claw-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-claw-700 transition-colors whitespace-nowrap text-sm">
             Notify Me
           </button>
         </form>
 
-        <p id="form-success" class="hidden text-sm text-green-600 mt-4">
+        <p id="form-success" class="hidden text-sm text-claw-600 mt-4 font-medium">
           ✓ You're on the list! We'll email you when ClawFlow Complete is ready.
         </p>
 
         <p class="text-xs text-surface-800/40 mt-4">No spam. One email when it launches. Unsubscribe anytime.</p>
 
-        <div class="mt-8 pt-8 border-t border-surface-100">
+        <div class="mt-8 pt-8 border-t border-surface-200">
           <p class="text-sm text-surface-800/50 mb-3">Want to try the free version right now?</p>
           <a href="#" class="inline-flex items-center gap-2 text-claw-600 font-medium text-sm hover:text-claw-700 transition-colors">
             Install ClawFlow Basic on ClawHub
@@ -714,8 +954,8 @@
   <footer class="border-t border-surface-100 py-8">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div class="flex items-center gap-2 text-sm text-surface-800/50">
-          <span>🦝</span>
+        <div class="flex items-center gap-2 text-sm text-surface-800/50 font-mono">
+          <span class="text-claw-500">⚡</span>
           <span>ClawFlow by <strong>Dr. Data Science</strong></span>
         </div>
         <div class="flex gap-6 text-sm text-surface-800/40">
@@ -734,8 +974,6 @@
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
     });
-
-    // Close mobile menu on link click
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
@@ -749,21 +987,45 @@
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
     reveals.forEach(el => observer.observe(el));
 
-    // Email form handler (placeholder — replace with real email service)
+    // Demo tabs
+    const tabTitles = {
+      morning: '~/clawflow $ cat briefs/2026-03-09.md',
+      daily: '~/clawflow $ cat summaries/2026-03-06.md',
+      weekly: '~/clawflow $ cat reviews/2026-W10.md',
+      search: '~/clawflow $ search "privacy strategy decision"',
+      projects: '~/clawflow $ cat projects.json'
+    };
+
+    function switchTab(tab) {
+      // Update buttons
+      document.querySelectorAll('.demo-tab').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + tab).classList.add('active');
+
+      // Update terminal title
+      document.getElementById('terminal-title').textContent = tabTitles[tab];
+
+      // Switch panels
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
+      const activePanel = document.getElementById('panel-' + tab);
+      activePanel.classList.remove('hidden');
+
+      // Re-trigger animation
+      activePanel.style.animation = 'none';
+      activePanel.offsetHeight; // force reflow
+      activePanel.style.animation = '';
+    }
+
+    // Email form handler
     function handleSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('email-form');
       const success = document.getElementById('form-success');
 
-      // TODO: Replace with ConvertKit/Mailchimp/Buttondown integration
-      // For now, just show success message
       form.style.display = 'none';
       success.classList.remove('hidden');
 
-      // Store email in localStorage as fallback
       const email = form.querySelector('input[name="email"]').value;
       const emails = JSON.parse(localStorage.getItem('clawflow-emails') || '[]');
       emails.push({ email, date: new Date().toISOString() });
