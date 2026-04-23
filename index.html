@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ClawFlow — Productivity System for OpenClaw</title>
-  <meta name="description" content="Automated morning briefs, daily summaries, and weekly reviews for OpenClaw. Set up in 30 minutes. Runs itself forever. Built by a Lead Data Scientist.">
+  <meta name="description" content="Automated morning briefs, daily summaries, and weekly reviews for OpenClaw. Set up in 10 minutes. Runs itself forever. Built by a Lead Data Scientist.">
   <meta name="keywords" content="OpenClaw productivity, AI productivity system, knowledge worker automation, ClawFlow, morning brief automation, daily summary automation">
   <meta name="author" content="Dr. Data Science">
 
   <!-- Open Graph -->
   <meta property="og:title" content="ClawFlow — Your OpenClaw Productivity System">
-  <meta property="og:description" content="Stop configuring, start working. Automated morning briefs, daily summaries, and weekly reviews. 30-minute setup. Runs forever.">
+  <meta property="og:description" content="Stop configuring, start working. Automated morning briefs, daily summaries, and weekly reviews. 10-minute setup. Runs forever.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kneijenhuijs.github.io/clawflow-landing/">
   <meta property="og:image" content="https://clawflow.studio/og-image.png">
@@ -18,7 +18,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ClawFlow — Your OpenClaw Productivity System">
-  <meta name="twitter:description" content="Automated morning briefs, daily summaries, and weekly reviews. 30-minute setup.">
+  <meta name="twitter:description" content="Automated morning briefs, daily summaries, and weekly reviews. 10-minute setup.">
 
   <!-- Schema.org -->
   <script type="application/ld+json">
@@ -291,7 +291,7 @@
         </h1>
 
         <p class="text-lg md:text-xl text-surface-800/70 leading-relaxed mb-10 max-w-2xl">
-          ClawFlow is a production-ready productivity system for OpenClaw. Automated morning briefs, daily summaries, weekly reviews. Set up in 30 minutes. Runs&nbsp;itself&nbsp;forever.
+          ClawFlow is a production-ready productivity system for OpenClaw. Automated morning briefs, daily summaries, weekly reviews. Set up in 10 minutes. Runs&nbsp;itself&nbsp;forever.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4">
@@ -509,9 +509,9 @@
       <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
         <div class="reveal" style="transition-delay: 0.1s">
           <div class="w-10 h-10 bg-claw-100 text-claw-700 rounded-lg flex items-center justify-center font-bold text-lg mb-4 font-mono">1</div>
-          <h3 class="font-semibold text-lg mb-2">Install the skill</h3>
-          <p class="text-surface-800/60 text-sm leading-relaxed">One command on ClawHub. Takes about 30 seconds. The setup wizard handles the rest.</p>
-          <code class="block mt-3 text-xs font-mono text-claw-700 bg-claw-50 px-3 py-2 rounded-lg">clawhub install clawflow</code>
+          <h3 class="font-semibold text-lg mb-2">Install</h3>
+          <p class="text-surface-800/60 text-sm leading-relaxed">Free Basic on ClawHub (one command). Or grab the Complete ZIP from the pricing section for full automation.</p>
+          <code class="block mt-3 text-xs font-mono text-claw-700 bg-claw-50 px-3 py-2 rounded-lg">clawhub install clawflow-basic</code>
         </div>
 
         <div class="reveal" style="transition-delay: 0.2s">
@@ -567,14 +567,14 @@
         <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
           <div class="text-2xl mb-3">🔍</div>
           <h3 class="font-semibold mb-2">Memory Search</h3>
-          <p class="text-sm text-surface-800/60 leading-relaxed">Semantic search through all your daily notes and summaries. "What did I decide about the API redesign?" — instant answer.</p>
-          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium font-mono">Complete only</span>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Basic <code class="text-xs bg-surface-100 px-1 py-0.5 rounded">grep</code> across your daily notes works out of the box. Add the optional <code class="text-xs bg-surface-100 px-1 py-0.5 rounded">qmd</code> CLI for semantic search: "What did I decide about the API redesign?" — instant answer.</p>
+          <span class="inline-block mt-2 text-xs bg-claw-50 text-claw-700 px-2 py-0.5 rounded font-medium font-mono">Complete · semantic = optional</span>
         </div>
 
         <div class="feature-card bg-white border border-surface-100 rounded-xl p-6 reveal">
           <div class="text-2xl mb-3">🔗</div>
           <h3 class="font-semibold mb-2">Integrations</h3>
-          <p class="text-sm text-surface-800/60 leading-relaxed">Todoist, Google Calendar, Asana, Linear, Outlook, GitHub Projects — connect what you already use. Everything flows into your briefs.</p>
+          <p class="text-sm text-surface-800/60 leading-relaxed">Todoist, Google Calendar, Telegram delivery, Google Drive backup, GitHub milestones (read-only). More on the roadmap (see below) — v1.x updates included.</p>
         </div>
       </div>
     </div>
@@ -584,30 +584,45 @@
   <section class="py-16 md:py-24 bg-surface-50">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-12 reveal">
-        <h2 class="text-2xl md:text-3xl font-bold mb-3">Pre-built integrations</h2>
-        <p class="text-surface-800/60 font-mono">6 at launch · 9 by April</p>
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">What ships in v1.0</h2>
+        <p class="text-surface-800/60 font-mono">5 integrations live · more on the roadmap</p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
-        <div class="bg-white border border-surface-100 rounded-xl p-6 text-center reveal">
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-5xl mx-auto mb-10">
+        <div class="bg-white border border-surface-100 rounded-xl p-5 text-center reveal">
           <div class="text-2xl mb-3">✅</div>
-          <h3 class="font-semibold mb-2">Tasks</h3>
-          <p class="text-sm text-surface-800/60">Todoist · Asana · Linear</p>
+          <h3 class="font-semibold mb-1 text-sm">Tasks</h3>
+          <p class="text-xs text-surface-800/60">Todoist</p>
         </div>
-        <div class="bg-white border border-surface-100 rounded-xl p-6 text-center reveal">
+        <div class="bg-white border border-surface-100 rounded-xl p-5 text-center reveal">
           <div class="text-2xl mb-3">📅</div>
-          <h3 class="font-semibold mb-2">Calendar</h3>
-          <p class="text-sm text-surface-800/60">Google Calendar · Outlook</p>
+          <h3 class="font-semibold mb-1 text-sm">Calendar</h3>
+          <p class="text-xs text-surface-800/60">Google Calendar</p>
         </div>
-        <div class="bg-white border border-surface-100 rounded-xl p-6 text-center reveal">
+        <div class="bg-white border border-surface-100 rounded-xl p-5 text-center reveal">
+          <div class="text-2xl mb-3">💬</div>
+          <h3 class="font-semibold mb-1 text-sm">Delivery</h3>
+          <p class="text-xs text-surface-800/60">Telegram</p>
+        </div>
+        <div class="bg-white border border-surface-100 rounded-xl p-5 text-center reveal">
+          <div class="text-2xl mb-3">☁️</div>
+          <h3 class="font-semibold mb-1 text-sm">Backup</h3>
+          <p class="text-xs text-surface-800/60">Google Drive</p>
+        </div>
+        <div class="bg-white border border-surface-100 rounded-xl p-5 text-center reveal">
           <div class="text-2xl mb-3">📂</div>
-          <h3 class="font-semibold mb-2">Projects</h3>
-          <p class="text-sm text-surface-800/60">GitHub Projects</p>
+          <h3 class="font-semibold mb-1 text-sm">Projects</h3>
+          <p class="text-xs text-surface-800/60">GitHub milestones <span class="text-surface-800/40">(read)</span></p>
         </div>
       </div>
 
-      <div class="text-center mb-10 reveal">
-        <p class="text-sm text-surface-800/50 font-mono">Coming in April: GitLab · Notion · Obsidian</p>
+      <div class="text-center mb-10 reveal max-w-3xl mx-auto">
+        <p class="text-sm text-surface-800/60 font-mono mb-2">On the roadmap (free for v1.x buyers)</p>
+        <p class="text-sm text-surface-800/50">
+          v1.1 (May): Obsidian as memory backend ·
+          v2.0 (May–Jun): OpenRouter + Mem0 ·
+          v2.1 (Jun–Jul): Asana, Linear, Outlook
+        </p>
       </div>
 
       <!-- Free vs Paid integration comparison -->
@@ -633,17 +648,17 @@
                 <td class="p-4 text-center text-claw-500">✓</td>
               </tr>
               <tr class="border-b border-surface-50">
-                <td class="p-4 text-surface-800/70">Asana, Linear, Outlook, GitHub</td>
+                <td class="p-4 text-surface-800/70">Telegram delivery + Google Drive backup</td>
                 <td class="p-4 text-center text-surface-300">—</td>
                 <td class="p-4 text-center text-claw-500">✓</td>
               </tr>
               <tr class="border-b border-surface-50">
-                <td class="p-4 text-surface-800/70">Roadmap tools (GitLab, Notion, Obsidian)</td>
+                <td class="p-4 text-surface-800/70">GitHub milestones (weekly planning)</td>
                 <td class="p-4 text-center text-surface-300">—</td>
                 <td class="p-4 text-center text-claw-500">✓</td>
               </tr>
               <tr>
-                <td class="p-4 text-surface-800/70">1 custom integration setup</td>
+                <td class="p-4 text-surface-800/70">1 custom integration setup <span class="text-xs text-surface-800/40">(via GitHub issue)</span></td>
                 <td class="p-4 text-center text-surface-300">—</td>
                 <td class="p-4 text-center text-claw-500">✓</td>
               </tr>
@@ -656,6 +671,39 @@
         <div class="bg-claw-50 border border-claw-100 rounded-xl p-6">
           <p class="text-sm text-claw-900 leading-relaxed">
             <strong>Use something else?</strong> Every paid template includes 1 custom integration setup via GitHub issue — no call needed, fully async. We configure it for you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cost & Billing FAQ -->
+  <section class="py-16 md:py-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Real talk on cost</h2>
+        <p class="text-surface-800/60">The questions everyone asks before they buy.</p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <h3 class="font-semibold text-lg mb-2">How much does it actually cost to run?</h3>
+          <p class="text-sm text-surface-800/70 leading-relaxed">
+            About <strong>$5–10/month</strong> at typical usage (just the cron jobs). Plus your Anthropic API credits. The included <code class="text-xs bg-surface-100 px-1 py-0.5 rounded">docs/anthropic-setup.md</code> walks you through capping monthly spend at $20 so there are no surprises.
+          </p>
+        </div>
+
+        <div class="bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <h3 class="font-semibold text-lg mb-2">I also use Claude Code. Will this affect that?</h3>
+          <p class="text-sm text-surface-800/70 leading-relaxed">
+            Yes — if you don't isolate billing. Both tools draw from the same Anthropic pool by default, which means a heavy Claude Code session can eat into ClawFlow's budget (and vice versa). The setup guide explains how to give each tool its own dedicated budget so they can't interfere. <em>Skipping this is the #1 surprise-bill pitfall.</em>
+          </p>
+        </div>
+
+        <div class="bg-white border border-surface-100 rounded-xl p-6 reveal">
+          <h3 class="font-semibold text-lg mb-2">Can I run it without Anthropic?</h3>
+          <p class="text-sm text-surface-800/70 leading-relaxed">
+            Yes via Ollama fallback. Your local model handles cron jobs when Anthropic is unavailable or you want zero API spend. Works best with <code class="text-xs bg-surface-100 px-1 py-0.5 rounded">qwen3:8b</code> or larger — daily summaries can hit 90k+ tokens on busy days, so you want a model with enough context.
           </p>
         </div>
       </div>
@@ -752,7 +800,7 @@
             </li>
             <li class="flex gap-3 items-start">
               <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              <span>All 6 integrations + 1 custom setup</span>
+              <span>All 5 integrations + 1 custom setup (async)</span>
             </li>
             <li class="flex gap-3 items-start">
               <svg class="w-5 h-5 text-claw-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -771,10 +819,11 @@
               <span>Priority support</span>
             </li>
           </ul>
-          <a href="#early-access" class="block w-full text-center bg-claw-600 text-white py-3 rounded-xl font-semibold hover:bg-claw-700 transition-colors">
-            Get Early Access →
+          <!-- TODO Koen: vervang href met Lemon Squeezy product URL zodra die live is. Default behoudt #early-access flow als fallback. -->
+          <a href="https://drdatascience.lemonsqueezy.com/buy/clawflow" class="block w-full text-center bg-claw-600 text-white py-3 rounded-xl font-semibold hover:bg-claw-700 transition-colors">
+            Get the ZIP →
           </a>
-          <p class="text-center text-xs text-surface-800/40 mt-3">Launching April 24 · Early bird pricing available</p>
+          <p class="text-center text-xs text-surface-800/40 mt-3">Instant download · One-time purchase · Lifetime v1.x updates</p>
         </div>
       </div>
 
@@ -782,7 +831,7 @@
       <div class="max-w-2xl mx-auto mt-12 text-center reveal">
         <div class="bg-claw-50 border border-claw-100 rounded-xl p-6">
           <p class="text-lg text-claw-900 leading-relaxed font-semibold">
-            30 hours configuring. Or 30 minutes with ClawFlow.<br>
+            30 hours configuring. Or 10 minutes with ClawFlow.<br>
             <span class="font-mono">$99 once. Not $99/month.</span>
           </p>
         </div>
