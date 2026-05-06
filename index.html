@@ -335,6 +335,55 @@
     </div>
   </section>
 
+  <!-- Video walkthrough — 2-3 min Screen Studio capture -->
+  <section id="video" class="py-16 md:py-24">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-10 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">See it run — in under 3 minutes</h2>
+        <p class="text-surface-800/60">A real walkthrough: morning brief, daily summary, weekly planning. No editing tricks.</p>
+      </div>
+
+      <!-- Video container: 16:9 aspect ratio, ready for Screen Studio embed.
+           When ready, replace the placeholder div below with:
+             <iframe src="https://screen.studio/share/<id>" loading="lazy"
+               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+               allowfullscreen class="absolute inset-0 w-full h-full rounded-2xl"></iframe>
+           Vimeo unlisted fallback uses the same iframe shape with src="https://player.vimeo.com/video/<id>". -->
+      <div class="relative w-full reveal" style="padding-top: 56.25%;">
+        <div class="absolute inset-0 rounded-2xl bg-surface-900 border border-surface-200 overflow-hidden flex flex-col items-center justify-center">
+          <!-- Placeholder state -->
+          <div class="text-center px-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-claw-600/20 mb-4">
+              <svg class="w-7 h-7 text-claw-400" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <p class="text-white text-lg font-semibold mb-2">Walkthrough recording incoming</p>
+            <p class="text-surface-300 text-sm font-mono">Recording with Screen Studio. Drops in here when it's ready.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post-video email capture: warm intent, "I want updates without committing yet" -->
+      <div class="max-w-md mx-auto mt-12 reveal">
+        <p class="text-center text-sm text-surface-800/60 mb-3 font-medium">Want a heads-up when the next version ships?</p>
+        <form action="https://app.kit.com/forms/13e912c2c2/subscriptions" method="post" class="flex flex-col sm:flex-row gap-2" data-source="post-video">
+          <input type="hidden" name="fields[ll_source]" value="post-video">
+          <input
+            type="email"
+            name="email_address"
+            required
+            placeholder="you@work.com"
+            class="flex-1 px-4 py-2.5 rounded-xl border border-surface-200 bg-white text-surface-800 placeholder:text-surface-800/40 focus:outline-none focus:border-claw-400 focus:ring-2 focus:ring-claw-100 transition-all"
+            aria-label="Email address"
+          >
+          <button type="submit" class="bg-claw-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-claw-700 transition-colors whitespace-nowrap">
+            Notify me
+          </button>
+        </form>
+        <p class="text-xs text-surface-800/40 mt-2 text-center">No spam. One email when v1.1 ships, that's it.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Demo / Terminal with Tabs -->
   <section id="demo" class="py-16 md:py-24">
     <div class="max-w-6xl mx-auto px-6">
@@ -710,6 +759,31 @@
     </div>
   </section>
 
+  <!-- Pre-pricing soft capture: "I'm considering, but not ready for €89 today" -->
+  <section class="py-12 md:py-16 bg-surface-50 border-y border-surface-100">
+    <div class="max-w-2xl mx-auto px-6 text-center reveal">
+      <p class="text-surface-800/70 mb-4">
+        Not sure yet? <span class="text-surface-800 font-medium">Get the launch notes when v1.1 ships.</span>
+        Decide later when you've seen what's in the next release.
+      </p>
+      <form action="https://app.kit.com/forms/13e912c2c2/subscriptions" method="post" class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto" data-source="pre-pricing">
+        <input type="hidden" name="fields[ll_source]" value="pre-pricing">
+        <input
+          type="email"
+          name="email_address"
+          required
+          placeholder="you@work.com"
+          class="flex-1 px-4 py-2.5 rounded-xl border border-surface-200 bg-white text-surface-800 placeholder:text-surface-800/40 focus:outline-none focus:border-claw-400 focus:ring-2 focus:ring-claw-100 transition-all"
+          aria-label="Email address"
+        >
+        <button type="submit" class="bg-claw-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-claw-700 transition-colors whitespace-nowrap">
+          Send me updates
+        </button>
+      </form>
+      <p class="text-xs text-surface-800/40 mt-2">One email when there's something concrete to share.</p>
+    </div>
+  </section>
+
   <!-- Pricing / Comparison -->
   <section id="pricing" class="py-16 md:py-24">
     <div class="max-w-6xl mx-auto px-6">
@@ -999,6 +1073,14 @@
           <a href="https://github.com/kneijenhuijs/clawflow-free" class="hover:text-surface-800/60 transition-colors">GitHub</a>
           <a href="https://clawhub.ai/kneijenhuijs/clawflow-free" class="hover:text-surface-800/60 transition-colors">ClawHub</a>
         </div>
+      </div>
+
+      <!-- Built-in-public badge: subtle trust signal, no fake testimonials -->
+      <div class="mt-6 pt-6 border-t border-surface-100 text-center">
+        <a href="https://github.com/kneijenhuijs/clawflow-free/commits/main" class="inline-flex items-center gap-2 text-xs text-surface-800/40 hover:text-surface-800/60 transition-colors font-mono">
+          <span>🛠</span>
+          <span>Built in public · every commit is on GitHub</span>
+        </a>
       </div>
     </div>
   </footer>
